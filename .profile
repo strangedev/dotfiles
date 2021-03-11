@@ -12,6 +12,7 @@ man() {
 }
 
 export EDITOR=vim
+
 alias adog='git log --all --oneline --decorate --graph'
 alias ss='git status'
 alias addi='git add -i'
@@ -21,8 +22,13 @@ alias pp='git push'
 alias oops='git commit --amend'
 alias add='git add'
 alias pull='git pull'
+
 alias nom='npm'
+
 alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
+alias ls='exa'
+alias ll='exa --long --git --header --all --group --grid'
 
 export PATH=$PATH:/home/nh/bin
 
