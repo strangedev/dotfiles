@@ -40,3 +40,4 @@ color15 = #f2fffc
 
 [options]
 font = Monaco 10
+scrollback_lines = -1
