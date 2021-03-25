@@ -1,0 +1,23 @@
+#!/bin/bash
+bold=$(tput bold)
+normal=$(tput sgr0)
+columns=$(tput cols)
+highlight=$(tput setaf 5)
+underline=$(tput smul)
+
+#printf %"$columns"s |tr " " "-"
+
+echo "${bold}${highlight}$(xkcd -o select -s Title)${normal}"
+echo "${underline}$(xkcd -o select -s URL)${normal}"
+echo ""
+
+img2sixel_path=$(which img2sixel)
+
+if [[ -f "$img2sixel_path" ]]; then
+	img2sixel -h 420px $(xkcd -o select -s ImageURL)
+else
+	caption=$(xkcd -o select -s Caption)
+	cowsay "$caption"
+fi
+
+#printf %"$columns"s |tr " " "-"
