@@ -1,0 +1,7 @@
+bg_color = #3a3a44444949
+fg_color = #f2f2fffffcfc
+cursor_bg_color = #f2f2fffffcfc 
+cursor_fg_color = #f2f2fffffcfc
+scrollbar_mode = none
+use_extended_scroll_shortcut = true
+regard_uri_as_word = true
