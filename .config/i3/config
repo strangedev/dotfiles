@@ -178,3 +178,4 @@ bar {
 }
 
 exec --no-startup-id setxkbmap -layout de
+exec --no-startup-id redshift
