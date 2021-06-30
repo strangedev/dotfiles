@@ -5,3 +5,4 @@ cursor_fg_color = #f2f2fffffcfc
 scrollbar_mode = none
 use_extended_scroll_shortcut = true
 regard_uri_as_word = true
+logsize = unlimited

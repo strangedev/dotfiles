@@ -1,4 +1,4 @@
-export GTK_THEME=Breeze-Dark
+export GTK_THEME=Arc-Dark
 source /usr/share/nvm/init-nvm.sh
 
 man() {
