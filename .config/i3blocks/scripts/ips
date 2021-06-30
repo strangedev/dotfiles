@@ -1,0 +1,73 @@
+#!/bin/env python3
+import psutil
+from ipaddress import ip_interface, ip_network
+from socket import AF_INET, AF_INET6
+from helper.pango import colored
+
+def expand_hextet(hextet: str) -> str:
+	return f'{hextet:0>4}'
+
+def expand_compressed_ipv6_address(address: str) -> str:
+	parts = address.split('::')
+	hextets = []
+	if len(parts) > 1:
+		left, right = parts[0], parts[1]
+		left_hextets, right_hextets = left.split(':'), right.split(':')
+		hextets_count = len(left_hextets) + len(right_hextets)
+		missing_hextets_count = 8 - hextets_count
+		hextets = [*left_hextets, *(missing_hextets_count * ['0000']), *right_hextets]
+	else:
+		hextets = parts[0].split(':')
+
+	expanded_address = ':'.join(map(expand_hextet, hextets))
+	return expanded_address
+
+def hex_to_bits(hex_string: str) -> str:
+	return bin(int(hex_string, base=16))[2:]
+
+def get_ipv6_netmask_prefixlen(netmask: str) -> int:
+	if netmask is None:
+		return 128
+	expanded_netmask = expand_compressed_ipv6_address(netmask).replace(':', '')
+	netmask_bits = hex_to_bits(expanded_netmask)
+	prefix_len = len(netmask_bits.split('0')[0])
+	return prefix_len
+
+def format_addresses(snic_addresses) -> str:
+	ips = []
+	network = None
+	for address_info in snic_addresses:
+		prefix_len = None
+		if address_info.family == AF_INET:
+			dummy_network = ip_network(f'0.0.0.0/{address_info.netmask}')
+			prefix_len = dummy_network.prefixlen
+		elif address_info.family == AF_INET6:
+			prefix_len = get_ipv6_netmask_prefixlen(address_info.netmask)
+		else:
+			continue
+
+		interface = ip_interface(f'{address_info.address}/{prefix_len}')
+		network = interface.network
+
+		colored_ip = colored(interface.ip, "white")
+		colored_prefix = colored(f'/{prefix_len}', "grey")
+		ips.append(f'{colored_ip}{colored_prefix}')
+	return ', '.join(ips)
+
+def format_interface(interface, addresses) -> str:
+	return f'{format_addresses(addresses)} {colored("via", "grey")} {colored(interface, "orange")}'
+
+if __name__ == '__main__':
+	monitored_interfaces = [
+		'enp5s0',
+		'docker0'
+	]
+	if_addresses = psutil.net_if_addrs()
+	interfaces = [
+		format_interface(interface, addresses)
+			for interface, addresses in if_addresses.items()
+			if interface in monitored_interfaces
+	]
+	message = ', '.join(interfaces)
+
+	print(message)

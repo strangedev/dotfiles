@@ -1,0 +1,25 @@
+#!/bin/env python3
+import psutil
+from helper.bytes import to_gibibytes
+from helper.pango import colored
+
+def format_used_memory(used_memory, total_memory):
+    percentage = used_memory / total_memory
+    if percentage < .25:
+        return colored(used_memory, 'white')
+    elif percentage < .50:
+        return colored(used_memory, 'yellow')
+    elif percentage < .75:
+        return colored(used_memory, 'orange')
+    return colored(used_memory, 'red')
+
+
+if __name__ == '__main__':
+    memory = psutil.virtual_memory()
+    total_memory = to_gibibytes(memory.total)
+    used_memory = to_gibibytes(memory.used)
+
+    colored_used_memory = format_used_memory(used_memory, total_memory)
+    colored_separator = colored('/', 'grey')
+    colored_unit = colored('GiB', 'grey')
+    print(f'{colored_used_memory}{colored_separator}{total_memory} {colored_unit}')

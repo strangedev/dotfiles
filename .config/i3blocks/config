@@ -1,0 +1,18 @@
+markup=pango
+interval=5
+
+[memory]
+command=$HOME/.config/i3blocks/scripts/memory
+label= 🧠 
+
+[cpu]
+command=$HOME/.config/i3blocks/scripts/cpu
+label= 📊 
+
+[ips]
+command=$HOME/.config/i3blocks/scripts/ips
+label= 🔗 
+
+[clock]
+command=$HOME/.config/i3blocks/scripts/clock
+label= 
