@@ -1,0 +1,74 @@
+#!/bin/env python3
+import subprocess
+import math
+import re
+import os
+from datetime import datetime
+from helper.pango import colored
+from helper.emoji_clock import get_clock_emoji
+
+blocks = [
+	{
+		'script': 'ips',
+		'label': '🌍',
+		'delimiters': {
+			'left': '{ ',
+			'right': ' }',
+			'color': 'grey'
+		}
+	},
+	{
+		'script': 'cpu',
+		'label': '⚙️',
+		'delimiters': {
+			'left': '{ ',
+			'right': ' }',
+			'color': 'grey'
+		}
+	},
+	{
+		'script': 'memory',
+		'label': '🧠',
+		'delimiters': {
+			'left': '{ ',
+			'right': ' }',
+			'color': 'grey'
+		}
+	},
+	{
+		'script': 'clock',
+		'label': get_clock_emoji(datetime.now()),
+		'delimiters': {
+			'left': '{ ',
+			'right': ' }',
+			'color': 'grey'
+		}
+	}
+]
+width = 400
+label_spacer = colored('-', 'grey')
+separator = '    '
+
+def strip_markup(text):
+	return re.sub(r'<[^>]+>', '', text)
+
+if __name__ == '__main__':
+	dirname = os.path.dirname(os.path.realpath(__file__))
+	content = []
+	for block in blocks:
+		script = f'{dirname}/{block["script"]}'
+		label = block["label"]
+		proc = subprocess.run([script], capture_output=True, check=True)
+		block_content = proc.stdout.decode().replace('\n', '')
+		if 'delimiters' in block:
+			delimiters = block['delimiters']
+			left_delimiter = colored(delimiters['left'], delimiters['color'])
+			right_delimiter = colored(delimiters['right'], delimiters['color'])
+			block_content = f'{left_delimiter}{block_content}{right_delimiter}'
+		content.append(f'{label}{label_spacer}{block_content}')
+
+	status = separator.join(content)
+	padding = width - len(strip_markup(status))
+	left_padding = right_padding = math.floor(padding / 2)
+	padded_status = (left_padding * ' ') + status + (right_padding *  ' ')
+	print(padded_status)

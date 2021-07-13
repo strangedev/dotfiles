@@ -6,3 +6,7 @@ scrollbar_mode = none
 use_extended_scroll_shortcut = true
 regard_uri_as_word = true
 logsize = unlimited
+use_transbg = true
+alpha = 240
+wall_picture = 
+blink_cursor = true
