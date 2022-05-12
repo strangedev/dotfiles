@@ -14,14 +14,15 @@ man() {
 export EDITOR=vim
 
 alias adog='git log --all --oneline --decorate --graph'
-alias ss='git status'
+alias gst='git status'
 alias addi='git add -i'
 alias addp='git add -p'
-alias cc='git commit'
+alias gcs='git commit -S'
 alias pp='git push'
 alias oops='git commit --amend'
 alias add='git add'
 alias pull='git pull'
+alias gup='git fetch origin && git merge origin/main && git push'
 
 alias nom='npm'
 
@@ -31,5 +32,5 @@ alias ls='exa'
 alias ll='exa --long --git --header --all --group --grid'
 
 export PATH=$PATH:/home/nh/bin
-
-xkcd-motd
+export WALLPAPER="$HOME/Pictures/castle.png"
+export BAT_THEME="ansi"

@@ -21,13 +21,13 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec mlterm
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show combi
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec rofi -modi drun,run -show drun
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -135,16 +135,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
@@ -155,8 +155,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 hide_edge_borders both
-gaps inner 2
-gaps outer 2
+gaps inner 5
+gaps outer 5
 
 font pango:Monaco 9
 
@@ -165,13 +165,12 @@ exec --no-startup-id pasystray
 exec --no-startup-id setxkbmap -layout de
 exec --no-startup-id redshift
 exec --no-startup-id ~/.screenlayout/default.sh
-exec --no-startup-id xcompmgr -cCfF -D3
 exec --no-startup-id feh --bg-scale /home/nh/wallpaper
 
-client.focused #689d6a #689d6a #282828 #282828
-client.focused_inactive #1d2021 #1d2021 #928374 #282828
-client.unfocused #32302f #32302f #928374 #282828
-client.urgent #cc241d #cc241d #ebdbb2 #282828
+client.focused #888888 #dddddd #222222 #2e9ef4
+client.focused_inactive #333333 #555555 #bbbbbb #484e50
+client.unfocused #333333 #333333 #888888 #292d2e
+client.urgent #2f343a #900000 #ffffff #900000
 
 bar {
         id primary_bar
@@ -180,31 +179,31 @@ bar {
         tray_padding 2px
         separator_symbol "  "
         position top
-        output primary
+ #       output primary
   colors {
-    separator #928374
-    background #282828
-    statusline #ebdbb2
-    focused_workspace #689d6a #689d6a #282828 #222222
-    active_workspace #1d2021 #1d2021 #928374 #bbbbbb
-    inactive_workspace #32302f #32302f #928374 #bbbbbb
-    urgent_workspace #cc241d #cc241d #ebdbb2 #ffffff
+    separator #666666
+    background #333333
+    statusline #bbbbbb
+    focused_workspace #888888 #dddddd #222222 #282828
+    active_workspace #333333 #555555 #bbbbbb #928374
+    inactive_workspace #333333 #555555 #bbbbbb #928374
+    urgent_workspace #2f343a #900000 #ffffff #ebdbb2
   }
 }
-bar {
-        id nonprimary_bar
-        tray_output none
-        tray_padding 2px
-        separator_symbol "  "
-        position top
-        output nonprimary
-  colors {
-    separator #928374
-    background #282828
-    statusline #ebdbb2
-    focused_workspace #689d6a #689d6a #282828 #222222
-    active_workspace #1d2021 #1d2021 #928374 #bbbbbb
-    inactive_workspace #32302f #32302f #928374 #bbbbbb
-    urgent_workspace #cc241d #cc241d #ebdbb2 #ffffff
-  }
-}
+#bar {
+#        id nonprimary_bar
+#        tray_output none
+#        tray_padding 2px
+#        separator_symbol "  "
+#        position top
+#        output nonprimary
+#  colors {
+#    separator #928374
+#    background #282828
+#    statusline #ebdbb2
+#    focused_workspace #689d6a #689d6a #282828 #222222
+#    active_workspace #1d2021 #1d2021 #928374 #bbbbbb
+#    inactive_workspace #32302f #32302f #928374 #bbbbbb
+#    urgent_workspace #cc241d #cc241d #ebdbb2 #ffffff
+#  }
+#}

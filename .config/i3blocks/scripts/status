@@ -43,9 +43,18 @@ blocks = [
 			'right': ' }',
 			'color': 'grey'
 		}
+	},
+	{
+		'script': 'worktimer',
+		'label': '👔',
+		'delimiters': {
+			'left': '{ ',
+			'right': ' }',
+			'color': 'grey'
+		}
 	}
 ]
-width = 400
+width = 800
 label_spacer = colored('-', 'grey')
 separator = '    '
 

@@ -1,0 +1,38 @@
+#!/bin/env python3
+import os
+import re
+
+def parse_bool(text):
+    if text == 'true':
+        return True
+    if text == 'false':
+        return False
+    raise ValueError
+
+def get_is_timer_started(output: str) -> bool:
+    match = re.search(r"IsTimerStarted\s+(?P<is_timer_started>true|false)", output, re.M)
+    return parse_bool(match.group("is_timer_started"))
+
+def get_is_timer_suspended(output: str) -> bool:
+    match = re.search(r"IsTimerSuspended\s+(?P<is_timer_suspended>true|false)", output, re.M)
+    return parse_bool(match.group("is_timer_suspended"))
+
+def get_timer_suspended_since(output: str) -> str:
+    match = re.search(r"TimerSuspendedSince\s+(?P<timer_suspended_since>\w+)", output, re.M)
+    return match.group("timer_suspended_since")
+
+if __name__ == '__main__':
+    stdout = os.popen('worktimer status')
+    output = stdout.read()
+
+    is_timer_started = get_is_timer_started(output)
+    is_timer_suspended = get_is_timer_suspended(output)
+    timer_suspended_since = get_timer_suspended_since(output)
+
+    if is_timer_suspended:
+        print(f'😴 {timer_suspended_since}')
+    elif is_timer_started:
+        print('⏰')
+    else:
+        print('🛑')
+
