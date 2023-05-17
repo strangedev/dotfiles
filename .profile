@@ -63,3 +63,6 @@ alias ls='exa'
 alias ll='exa --long --git --header --all --group --grid'
 
 export BAT_THEME="ansi"
+
+git config --global core.excludesFile '~/.gitignore.global'
+
