@@ -1,5 +1,36 @@
-export GTK_THEME=Arc-Dark
-source /usr/share/nvm/init-nvm.sh
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/noah/.local/share/JetBrains/Toolbox/scripts"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/home/nh/bin
 
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
@@ -31,6 +62,4 @@ alias dot='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias ls='exa'
 alias ll='exa --long --git --header --all --group --grid'
 
-export PATH=$PATH:/home/nh/bin
-export WALLPAPER="$HOME/Pictures/castle.png"
 export BAT_THEME="ansi"
